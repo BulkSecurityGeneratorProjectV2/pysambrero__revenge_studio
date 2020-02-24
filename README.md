@@ -25,7 +25,7 @@ You can build your own executable jar file by using maven commands:<br/>
 mvn clean<br/>
 mvn package <br/>
 and go to "target" folder and you will find an executable jar called "Android-RevEnge.jar" then double click on it.<br/>
-Or you can download the demo jar [here](http://www.mediafire.com/file/3i804dgusa5hph4/Android-RevEnge.jar/file)<br/>
+Or you can download the demo jar [here](http://www.mediafire.com/file/3i804dgusa5hph4/Android-RevEnge.jar/file)<br/> packaged with Apktool v2.4.1
 
 Once launched, Revenge studio wil open the login page in your default browser, then you can login with username "admin" and password "admin".<br/>
 
