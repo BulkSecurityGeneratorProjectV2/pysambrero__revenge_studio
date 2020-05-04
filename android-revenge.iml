@@ -36,7 +36,7 @@
     <orderEntry type="module-library">
       <library name="Maven: brut.apktool:apktool:2.3.0">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/resources/lib/apktool_2.3.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/main/resources/lib/apktool_2.4.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
