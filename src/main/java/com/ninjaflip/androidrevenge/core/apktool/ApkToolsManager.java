@@ -231,6 +231,7 @@ public class ApkToolsManager {
         } catch (Exception e) {
             //LOGGER.error(ExceptionUtils.getStackTrace(e));
             throw e;
+
         }
     }
 
