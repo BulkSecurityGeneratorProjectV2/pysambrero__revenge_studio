@@ -7167,7 +7167,8 @@
                 });
             },
             toolsBuildApkForDebugClicked: function () {
-                w2confirm('Do want to build a DEBUG APK?')
+
+                w2confirm('Do want to build a DEBUG APK?<br><div style="text-align: left;margin-top: 10px; font-size: large;"><input type="checkbox" id="check_fe_use_aapt2" name="check_fe_use_aapt2">&nbsp;use aapt2</div>')
                     .yes(function () {
                         projectEditor.toolsBuildApkForDebugPerform();
                     })
@@ -7184,9 +7185,14 @@
                 }
                 console.log('Building DEBUG apk...');
                 // make an ajax call to start the process of building debug apk
+                var useAapt2 = $('#check_fe_use_aapt2').is(":checked");
                 $.ajax({
                     url: "/api/protected/toolsOfEditor",
-                    data: {action: "SUBMIT_BUILD_APK_DEBUG", projectUuid: $('#project-editor-devenvironment-data').attr('data-project-uuid')},
+                    data: {
+                        action: "SUBMIT_BUILD_APK_DEBUG",
+                        useAapt2: useAapt2,
+                        projectUuid: $('#project-editor-devenvironment-data').attr('data-project-uuid')
+                    },
                     method: 'POST',
                     dataType: "json",
                     timeout: 15000,
@@ -7314,6 +7320,8 @@
             toolsBuildApkForReleasePerform: function () {
                 var apkName = $("#input-fe-release-apk-name").val();
                 var keystoreUuid = $('#input-fe-release-apk-keystores').val();
+                var useAapt2 = $('#check_fe_use_aapt2').is(":checked");
+
 
                 if (!apkName) {
                     notify("Please enter an apk name!", "error", 5000);
@@ -7335,7 +7343,13 @@
                 // make an ajax call to start the process of building release apk
                 $.ajax({
                     url: "/api/protected/toolsOfEditor",
-                    data: {action: "SUBMIT_BUILD_APK_RELEASE", apkName: apkName, keystoreUuid: keystoreUuid, projectUuid: $('#project-editor-devenvironment-data').attr('data-project-uuid')},
+                    data: {
+                        action: "SUBMIT_BUILD_APK_RELEASE",
+                        apkName: apkName,
+                        keystoreUuid: keystoreUuid,
+                        useAapt2: useAapt2,
+                        projectUuid: $('#project-editor-devenvironment-data').attr('data-project-uuid')
+                    },
                     method: 'POST',
                     dataType: "json",
                     timeout: 15000,

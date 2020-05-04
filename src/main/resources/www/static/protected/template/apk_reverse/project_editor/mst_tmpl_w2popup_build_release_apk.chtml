@@ -19,4 +19,7 @@
     </select>
     <br>
     {{/keystores.0}}
+
+    <div style="text-align: left;margin-top: 10px; font-size: large;"><input type="checkbox" id="check_fe_use_aapt2" name="check_fe_use_aapt2">&nbsp;use aapt2</div>
+
 </div>

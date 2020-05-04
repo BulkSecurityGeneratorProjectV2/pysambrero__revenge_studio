@@ -1062,6 +1062,17 @@ public class FeToolsHandler implements Route {
                     }
                 }
                 case "SUBMIT_BUILD_APK_DEBUG": {
+                    String useAapt2Str = request.queryParams("useAapt2");
+                    // check if useAapt2Str is valid
+                    if (useAapt2Str == null || useAapt2Str.equals("")) {
+                        response.type("text/plain; charset=utf-8");
+                        response.status(400);
+                        String reason = "useAapt2 parameter is empty!";
+                        response.body(reason);
+                        return reason;
+                    }
+                    boolean useAapt2 =  Boolean.valueOf(useAapt2Str);
+
                     // user's current running processes
                     List<UserProcessBuilder> processes = UserProcessBuilder.getUserRunningProcesses(userUuid);
                     if (processes.size() > 0) { // check if there is an ongoing process => if exist ask user to wait until that process is finished
@@ -1176,7 +1187,7 @@ public class FeToolsHandler implements Route {
                                 }
 
                                 // build new Apk
-                                ApkToolsManager.getInstance().buildApk(userUuid, projectFolderNameUuid, isTemporary);
+                                ApkToolsManager.getInstance().buildApk(userUuid, projectFolderNameUuid, isTemporary, useAapt2);
 
                                 // sign apk with debug keystore
                                 String destSignedApkFolder = Configurator.getInstance().getGenFolderPath(userUuid, projectFolderNameUuid, isTemporary);
@@ -1333,6 +1344,18 @@ public class FeToolsHandler implements Route {
                         return reason;
                     }
 
+                    String useAapt2Str = request.queryParams("useAapt2");
+                    // check if useAapt2Str is valid
+                    if (useAapt2Str == null || useAapt2Str.equals("")) {
+                        response.type("text/plain; charset=utf-8");
+                        response.status(400);
+                        String reason = "useAapt2 parameter is empty!";
+                        response.body(reason);
+                        return reason;
+                    }
+                    boolean useAapt2 =  Boolean.valueOf(useAapt2Str);
+
+
                     String keystoreUuid = request.queryParams("keystoreUuid");
                     // check if keystoreUuid is valid
                     if (keystoreUuid == null || keystoreUuid.equals("")) {
@@ -1451,7 +1474,7 @@ public class FeToolsHandler implements Route {
                                     }
                                 }
                                 // build new Apk
-                                ApkToolsManager.getInstance().buildApk(userUuid, projectFolderNameUuid, isTemporary);
+                                ApkToolsManager.getInstance().buildApk(userUuid, projectFolderNameUuid, isTemporary, useAapt2);
 
 
                                 // sign apk with release keystore

@@ -84,7 +84,7 @@ public class ApkToolsManager {
             availableAdNetworks = (JSONArray) JSONValue.parse(Utils.convertStreamToString(stream));
         } catch (Exception e) {
             // do nothing
-        }finally {
+        } finally {
             IOUtils.closeQuietly(stream);
         }
 
@@ -100,7 +100,7 @@ public class ApkToolsManager {
             }
 
             excludedPackageNames = excludedPackageNamesList.toArray(new String[excludedPackageNamesList.size()]);
-        }catch (Exception e){
+        } catch (Exception e) {
             List<String> excludedPackageNamesList = new ArrayList<>();
             excludedPackageNamesList.add("com.google.");
             excludedPackageNames = excludedPackageNamesList.toArray(new String[excludedPackageNamesList.size()]);
@@ -189,6 +189,10 @@ public class ApkToolsManager {
      * @throws BrutException if an exception happen during apk build process
      */
     public void buildApk(String userUuid, String projectFolderNameUuid, boolean isTemporary) throws Exception {
+        buildApk(userUuid, projectFolderNameUuid, isTemporary, false);
+    }
+
+    public void buildApk(String userUuid, String projectFolderNameUuid, boolean isTemporary, boolean useAapt2) throws Exception {
         LOGGER.info(" ");
         LOGGER.info("********************************");
         LOGGER.info("*****   Building APK       *****");
@@ -211,6 +215,9 @@ public class ApkToolsManager {
             //apkOptions.copyOriginalFiles = true;
             // delete framework
             apkOptions.forceDeleteFramework = true;
+            if (useAapt2) {
+                apkOptions.useAapt2 = true;
+            }
 
             /*if (apkOutputFilePath == null || apkOutputFilePath.equals("")) {
                 outFile = null;
@@ -226,6 +233,7 @@ public class ApkToolsManager {
             throw e;
         }
     }
+
 
     /**
      * Change project's package name, this method will change all occurrences of old package name and its subpackages
@@ -1294,7 +1302,7 @@ public class ApkToolsManager {
                 }
             } catch (Exception e) {
                 // do nothing
-            }finally {
+            } finally {
                 IOUtils.closeQuietly(androidManifestFileInputStream);
             }
 
@@ -1875,9 +1883,9 @@ public class ApkToolsManager {
         // original apk file
         String srcApkFolderPath = Configurator.getInstance().getSrcApkFolder(userUuid, projectFolderNameUuid, isTemporary);
         File srcApkFolder = new File(srcApkFolderPath);
-        if(srcApkFolder.exists() && srcApkFolder.isDirectory()){
+        if (srcApkFolder.exists() && srcApkFolder.isDirectory()) {
             File[] files = srcApkFolder.listFiles();
-            if(files!= null && files.length == 1){
+            if (files != null && files.length == 1) {
                 File originalApk = files[0];
                 JSONObject apkInfo = new JSONObject();
                 apkInfo.put("apkName", originalApk.getName());
@@ -1904,7 +1912,7 @@ public class ApkToolsManager {
                         apkInfo.put("apkName", apk.getName());
                         apkInfo.put("dateCreated", new Date(apk.lastModified()));
                         apkInfo.put("dateCreatedFormatted", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(apk.lastModified()));
-                        apkInfo.put("description", (apk.getName().endsWith("-aligned-debugSigned.apk"))? "DEBUG" : "RELEASE");
+                        apkInfo.put("description", (apk.getName().endsWith("-aligned-debugSigned.apk")) ? "DEBUG" : "RELEASE");
                         apkInfo.put("is_original", false);
                         result.add(apkInfo);
                     }
