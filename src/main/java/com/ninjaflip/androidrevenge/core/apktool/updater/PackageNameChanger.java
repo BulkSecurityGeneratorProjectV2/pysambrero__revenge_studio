@@ -313,7 +313,7 @@ public class PackageNameChanger {
                 Thread.currentThread().interrupt();
                 throw new InterruptedException("APKTool thread was aborted abnormally!");
             }
-            if (!iteratorNewPackage.getCanonicalPath().startsWith(iteratorOldPackage.getCanonicalPath())) {
+            if (!iteratorNewPackage.getCanonicalFile().toPath().startsWith(iteratorOldPackage.getCanonicalFile().toPath())) {
                 LOGGER.info("---> moving from " + iteratorOldPackage.getPath() + " >>>>>> " + iteratorNewPackage.getPath());
                 if (iteratorOldPackage.exists()) {
                     FileComputingManager.getInstance().
