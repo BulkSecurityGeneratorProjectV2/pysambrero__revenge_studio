@@ -87,7 +87,7 @@ public class Extract {
             // Create Zip Entry Folder
             File zeFile = extractFolder;
             if (zeFolder != null) {
-                zeFile = new File(extractFolder.getPath() + File.separator + zeFolder);
+                zeFile = new File(extractFolder.getPath(), zeFolder);
                 if (!zeFile.exists())
                     zeFile.mkdirs();
             }
@@ -112,7 +112,13 @@ public class Extract {
             int count;
             byte data[] = new byte[BUFFER];
 
-            FileOutputStream fos = new FileOutputStream(zeFile.getPath() + File.separator + zeName);
+            final File zipEntryFile = new File(zeFile.getPath(), zeName);
+
+            if (!zipEntryFile.toPath().normalize().startsWith(zeFile.getPath())) {
+                throw new IOException("Bad zip entry");
+            }
+
+            FileOutputStream fos = new FileOutputStream(zipEntryFile);
             dest = new BufferedOutputStream(fos, BUFFER);
 
             while ((count = zin.read(data, 0, BUFFER)) != -1) {
