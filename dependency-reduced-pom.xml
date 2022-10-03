@@ -183,7 +183,7 @@
     <pluginRepository>
       <id>oss.sonatype.org</id>
       <name>oss.sonatype.org</name>
-      <url>http://oss.sonatype.org/content/groups/public</url>
+      <url>https://oss.sonatype.org/content/groups/public</url>
     </pluginRepository>
   </pluginRepositories>
   <dependencies>
