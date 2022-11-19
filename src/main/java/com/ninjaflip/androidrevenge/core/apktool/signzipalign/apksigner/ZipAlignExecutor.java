@@ -62,7 +62,7 @@ public class ZipAlignExecutor {
                     }
 
                     tmpFolder = Files.createTempDirectory("uapksigner-").toFile();
-                    File tmpZipAlign = File.createTempFile(fileName, null , tmpFolder);
+                    File tmpZipAlign = Files.createTempFile(tmpFolder.toPath(), fileName, null).toFile();
                     Files.copy(getClass().getClassLoader().getResourceAsStream(fileName), tmpZipAlign.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
                     // java 7 code

@@ -107,7 +107,7 @@ public class AdbManager {
         /*
          * Download the zip file containing adb from server to TEMP file
           */
-        File adbZip = File.createTempFile("ADB_install", ".zip");
+        File adbZip = Files.createTempFile("ADB_install", ".zip").toFile();
         adbZip.deleteOnExit();
 
         //urlZip = "https://dl.google.com/android/repository/platform-tools-latest-linux.zip";
@@ -176,7 +176,7 @@ public class AdbManager {
 
         // copy zip OS corresponding adb.zip file to tmp folder
         File tmpFolder = Files.createTempDirectory("tmpadb-").toFile();
-        File tmpZipFile = File.createTempFile(zipFleName, null, tmpFolder);
+        File tmpZipFile = Files.createTempFile(tmpFolder.toPath(), zipFleName, null).toFile();
         Files.copy(getClass().getClassLoader().getResourceAsStream(zipFleName), tmpZipFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
         // extract adb.zip file to its final destination

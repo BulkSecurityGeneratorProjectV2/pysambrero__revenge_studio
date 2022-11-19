@@ -77,7 +77,7 @@ public class SigningConfigGen {
 
             if (debugKeystore == null) {
                 try {
-                    tempDebugFile = File.createTempFile("temp_", "_" + DEBUG_KEYSTORE);
+                    tempDebugFile = Files.createTempFile("temp_", "_" + DEBUG_KEYSTORE).toFile();
                     // code migration java 1.7 to 1.6
                     Files.copy(getClass().getClassLoader().getResourceAsStream(DEBUG_KEYSTORE),
                             tempDebugFile.toPath(), StandardCopyOption.REPLACE_EXISTING);

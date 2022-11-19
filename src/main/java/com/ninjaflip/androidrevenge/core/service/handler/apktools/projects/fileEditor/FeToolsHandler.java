@@ -44,6 +44,7 @@ import spark.Route;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
@@ -1394,7 +1395,7 @@ public class FeToolsHandler implements Route {
                     boolean isTemporary = false;
                     String projectFolderNameUuid = project.getProjectFolderNameUuid();
                     SocketPrintStream socketErrPrintStream = new SocketPrintStream(System.err, session, EnumerationApkTool.EnumLogType.EDITOR_LOG);
-                    File tempJksFile = File.createTempFile("tmp-ks-", ".jks"); // create tmp file for keystore from bytes
+                    File tempJksFile = Files.createTempFile("tmp-ks-", ".jks").toFile(); // create tmp file for keystore from bytes
 
                     // create process for release apk builder
                     UserProcessBuilder apkForReleaseProcessBuilder = new UserProcessBuilder(userUuid, EnumerationApkTool.EnumProcessType.BUILD_RELEASE_APK) {

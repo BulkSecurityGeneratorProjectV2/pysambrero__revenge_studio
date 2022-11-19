@@ -652,7 +652,7 @@ public class AnalysisApk {
      * @throws IOException
      */
     private static File stream2file(InputStream in, String PREFIX, String SUFFIX) throws IOException {
-        final File tempFile = File.createTempFile(PREFIX, SUFFIX);
+        final File tempFile = Files.createTempFile(PREFIX, SUFFIX).toFile();
         tempFile.deleteOnExit();
         OutputStream out = null;
         try {
